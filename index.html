@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <!-- FullCalendar Library -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
 
-    <style>
-        #calendar {
-            max-width: 900px;
-            margin: 20px auto;
-            background: #1F1F1F;
-            padding: 10px;
-            border-radius: 8px;
-        }
-    </style>
+<style>
+  #calendar {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #1F1F1F;
+    padding: 10px;
+    border-radius: 8px;
+  }
+</style>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,6 +65,47 @@
             font-weight: 600;
             margin-bottom: 20px;
         }
+        .period-log {
+            background-color: #1F1F1F;
+            padding: 25px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 5px solid #E50914;
+            transition: transform 0.2s ease-in-out;
+        }
+        .period-log:hover {
+            transform: scale(1.02);
+        }
+        .log-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .log-content img {
+            width: 120px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .movie-comparison {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .rating {
+            color: gold;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .comments {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #E50914;
+        }
         .footer {
             text-align: center;
             padding: 25px;
@@ -84,14 +125,29 @@
             <a href="#">📽️ Trending</a>
         </div>
     </div>
+    <h2 class="section-title">Your Cycle Calendar</h2>
+    <div id="calendar"></div>
+    
+    <h3>Log a New Period</h3>
+    <input type="date" id="period-start" placeholder="Start Date">
+    <input type="date" id="period-end" placeholder="End Date">
+    <button id="log-period-btn">Log Period</button>
+    
+    <div class="log-form">
+        <h3>Log Your Cycle</h3>
+        <input type="text" id="flow" placeholder="Flow Type (Light/Medium/Heavy)">
+        <input type="text" id="movie" placeholder="Movie Comparison">
+        <input type="text" id="review" placeholder="Review">
+        <input type="number" id="rating" placeholder="Rating (1-5)">
+        <button id="add-log-btn">Add Log</button>
+    </div>
 
-    <h2 class="section-title">Sign in to Cycleboxd</h2>
-    <button id="login-btn">Sign in with Google</button>
-    <button id="logout-btn" style="display:none;">Sign out</button>
-    <p id="user-info">Not logged in</p>
 
-    <div class="footer">
-        &copy; 2024 Cycleboxd. Inspired by Letterboxd. Not affiliated. Unless they want to be.
+    <div class="auth-container">
+        <h2>Sign in to Cycleboxd</h2>
+        <button id="login-btn">Sign in with Google</button>
+        <button id="logout-btn" style="display:none;">Sign out</button>
+        <p id="user-info">Not logged in</p>
     </div>
     
     <div class="container">
@@ -286,7 +342,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
   
 </html>
-
-
-
-
