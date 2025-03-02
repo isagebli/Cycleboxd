@@ -193,8 +193,8 @@
     <div class="footer">
         &copy; 2024 Cycleboxd. Inspired by Letterboxd. Not affiliated. Unless they want to be.
     </div>
-    <script type="module">
-       // Import the functions you need from the SDKs you need
+    
+   // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -215,13 +215,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-        // Sign in with Google
-        document.getElementById("login-btn").addEventListener("click", async () => {
-            const result = await signInWithPopup(auth, provider);
-            document.getElementById("user-info").innerText = `Logged in as: ${result.user.displayName}`;
-            document.getElementById("logout-btn").style.display = "block";
-            document.getElementById("login-btn").style.display = "none";
-        });
+    <script type="module">
+       
     
         // Sign out
         document.getElementById("logout-btn").addEventListener("click", async () => {
