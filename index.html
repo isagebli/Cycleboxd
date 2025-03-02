@@ -194,6 +194,33 @@
         &copy; 2024 Cycleboxd. Inspired by Letterboxd. Not affiliated. Unless they want to be.
     </div>
     <script type="module">
+
+        function loadCycleData(userId) {
+    const q = query(collection(db, "cycles"), orderBy("startDate", "desc"));
+    getDocs(q).then((querySnapshot) => {
+        let events = [];
+        querySnapshot.forEach((doc) => {
+            let data = doc.data();
+            events.push({
+                title: "Period",
+                start: data.startDate,
+                end: data.endDate,
+                color: "#E50914"
+            });
+        });
+
+        // Add data to the calendar
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: events,
+            height: "auto",
+            themeSystem: "dark"
+        });
+        calendar.render();
+    });
+}
+
         // Import Firebase SDKs
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
