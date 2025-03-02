@@ -1,20 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- FullCalendar Library -->
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
-
-<style>
-  #calendar {
-    max-width: 900px;
-    margin: 20px auto;
-    background: #1F1F1F;
-    padding: 10px;
-    border-radius: 8px;
-  }
-</style>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cycleboxd - Your Period in Film</title>
@@ -125,14 +112,7 @@
             <a href="#">📽️ Trending</a>
         </div>
     </div>
-    <h2 class="section-title">Your Cycle Calendar</h2>
-    <div id="calendar"></div>
-    
-    <h3>Log a New Period</h3>
-    <input type="date" id="period-start" placeholder="Start Date">
-    <input type="date" id="period-end" placeholder="End Date">
-    <button id="log-period-btn">Log Period</button>
-    
+
     <div class="log-form">
         <h3>Log Your Cycle</h3>
         <input type="text" id="flow" placeholder="Flow Type (Light/Medium/Heavy)">
@@ -193,174 +173,83 @@
     <div class="footer">
         &copy; 2024 Cycleboxd. Inspired by Letterboxd. Not affiliated. Unless they want to be.
     </div>
-    <script type="module">
-        // Import Firebase SDKs
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-    
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC1RnYa2Kcyu98Re1cdmaqk-XOSGEzCXjY",
-            authDomain: "cycleboxd.firebaseapp.com",
-            projectId: "cycleboxd",
-            storageBucket: "cycleboxd.firebasestorage.app",
-            messagingSenderId: "56010578011",
-            appId: "1:56010578011:web:ecfd946003d8aca3f9c77e",
-            measurementId: "G-H84BHGNWXH"
-        };
-    
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth();
-        const provider = new GoogleAuthProvider();
-        const db = getFirestore(app);
-    
-        // Sign in with Google
-        document.getElementById("login-btn").addEventListener("click", async () => {
-            const result = await signInWithPopup(auth, provider);
-            document.getElementById("user-info").innerText = `Logged in as: ${result.user.displayName}`;
-            document.getElementById("logout-btn").style.display = "block";
-            document.getElementById("login-btn").style.display = "none";
-        });
-    
-        // Sign out
-        document.getElementById("logout-btn").addEventListener("click", async () => {
-            await signOut(auth);
-            document.getElementById("user-info").innerText = "Not logged in";
-            document.getElementById("logout-btn").style.display = "none";
-            document.getElementById("login-btn").style.display = "block";
-        });
-    
-        // Check if user is logged in
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById("user-info").innerText = `Logged in as: ${user.displayName}`;
-                document.getElementById("logout-btn").style.display = "block";
-                document.getElementById("login-btn").style.display = "none";
-            }
-        });
-    
-        // Add a cycle log
-        document.getElementById("add-log-btn").addEventListener("click", async () => {
-            if (!auth.currentUser) {
-                alert("Please log in first!");
-                return;
-            }
-    
-            const logData = {
-                user: auth.currentUser.displayName,
-                flow: document.getElementById("flow").value,
-                movie: document.getElementById("movie").value,
-                review: document.getElementById("review").value,
-                rating: document.getElementById("rating").value,
-                timestamp: new Date()
-            };
-    
-            await addDoc(collection(db, "logs"), logData);
-            alert("Log added successfully!");
-        });
-    
-        // Fetch logs
-        async function fetchLogs() {
-            const q = query(collection(db, "logs"));
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
-            });
-        }
-    
-        fetchLogs();
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, addDoc, query, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-
-// Firebase Config (Replace with Your Actual Config)
-const firebaseConfig = {
-    apiKey: "AIzaSyC1RnYa2Kcyu98Re1cdmaqk-XOSGEzCXjY",
-    authDomain: "cycleboxd.firebaseapp.com",
-    projectId: "cycleboxd",
-    storageBucket: "cycleboxd.firebasestorage.app",
-    messagingSenderId: "56010578011",
-    appId: "1:56010578011:web:ecfd946003d8aca3f9c77e",
-    measurementId: "G-H84BHGNWXH"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth();
-
-// Wait for User Login
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log("User logged in:", user.displayName);
-        loadCycleData(user.uid);
-    }
-});
-
-// Initialize Calendar
-document.addEventListener('DOMContentLoaded', function() {
-    const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        events: [],
-        height: "auto",
-        themeSystem: "dark"
-    });
-    calendar.render();
-
-    // Load Data into Calendar
-    function loadCycleData(userId) {
-        const q = query(collection(db, "cycles"), orderBy("startDate", "desc"));
-        getDocs(q).then((querySnapshot) => {
-            let events = [];
-            querySnapshot.forEach((doc) => {
-                let data = doc.data();
-                events.push({
-                    title: "Period",
-                    start: data.startDate,
-                    end: data.endDate,
-                    color: "#E50914"
-                });
-            });
-            calendar.addEventSource(events);
-        });
-    }
-
-    // Log New Period
-    document.getElementById("log-period-btn").addEventListener("click", async () => {
-        if (!auth.currentUser) {
-            alert("Please log in first!");
-            return;
-        }
-
-        let startDate = document.getElementById("period-start").value;
-        let endDate = document.getElementById("period-end").value;
-
-        if (!startDate || !endDate) {
-            alert("Please enter both dates.");
-            return;
-        }
-
-        const newLog = {
-            userId: auth.currentUser.uid,
-            startDate: startDate,
-            endDate: endDate
-        };
-
-        await addDoc(collection(db, "cycles"), newLog);
-        alert("Period logged successfully!");
-
-        // Refresh Calendar
-        calendar.addEventSource([{ title: "Period", start: startDate, end: endDate, color: "#E50914" }]);
-    });
-});
-
-    </script>
 </body>
-
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, query, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+  
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    const db = getFirestore(app);
+  
+    // Sign in with Google
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      const result = await signInWithPopup(auth, provider);
+      document.getElementById("user-info").innerText = `Logged in as: ${result.user.displayName}`;
+      document.getElementById("logout-btn").style.display = "block";
+      document.getElementById("login-btn").style.display = "none";
+    });
+  
+    // Sign out
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      await signOut(auth);
+      document.getElementById("user-info").innerText = "Not logged in";
+      document.getElementById("logout-btn").style.display = "none";
+      document.getElementById("login-btn").style.display = "block";
+    });
+  
+    // Check if user is logged in
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("user-info").innerText = `Logged in as: ${user.displayName}`;
+        document.getElementById("logout-btn").style.display = "block";
+        document.getElementById("login-btn").style.display = "none";
+      }
+    });
+  
+    // Add a cycle log
+    document.getElementById("add-log-btn").addEventListener("click", async () => {
+      if (!auth.currentUser) {
+        alert("Please log in first!");
+        return;
+      }
+  
+      const logData = {
+        user: auth.currentUser.displayName,
+        flow: document.getElementById("flow").value,
+        movie: document.getElementById("movie").value,
+        review: document.getElementById("review").value,
+        rating: document.getElementById("rating").value,
+        timestamp: new Date()
+      };
+  
+      await addDoc(collection(db, "logs"), logData);
+      alert("Log added successfully!");
+    });
+  
+    // Fetch logs
+    async function fetchLogs() {
+      const q = query(collection(db, "logs"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+    }
+  
+    fetchLogs();
+  </script>
   
 </html>
