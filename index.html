@@ -201,22 +201,12 @@
         import { getFirestore, collection, addDoc, query, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
     
         // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC1RnYa2Kcyu98Re1cdmaqk-XOSGEzCXjY",
-            authDomain: "cycleboxd.firebaseapp.com",
-            projectId: "cycleboxd",
-            storageBucket: "cycleboxd.firebasestorage.app",
-            messagingSenderId: "56010578011",
-            appId: "1:56010578011:web:ecfd946003d8aca3f9c77e",
-            measurementId: "G-H84BHGNWXH"
-        };
     
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-        const auth = getAuth();
+        // const auth = getAuth(); // This line is removed to avoid redeclaration error
         const provider = new GoogleAuthProvider();
-        const db = getFirestore(app);
     
         // Sign in with Google
         document.getElementById("login-btn").addEventListener("click", async () => {
@@ -277,19 +267,7 @@
 import { getFirestore, collection, addDoc, query, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
-// Firebase Config (Replace with Your Actual Config)
-const firebaseConfig = {
-    apiKey: "AIzaSyC1RnYa2Kcyu98Re1cdmaqk-XOSGEzCXjY",
-    authDomain: "cycleboxd.firebaseapp.com",
-    projectId: "cycleboxd",
-    storageBucket: "cycleboxd.firebasestorage.app",
-    messagingSenderId: "56010578011",
-    appId: "1:56010578011:web:ecfd946003d8aca3f9c77e",
-    measurementId: "G-H84BHGNWXH"
-};
-
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
 
