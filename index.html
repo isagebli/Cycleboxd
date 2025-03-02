@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <!-- FullCalendar Library -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
 
-    <style>
-        #calendar {
-            max-width: 900px;
-            margin: 20px auto;
-            background: #1F1F1F;
-            padding: 10px;
-            border-radius: 8px;
-        }
-    </style>
+<style>
+  #calendar {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #1F1F1F;
+    padding: 10px;
+    border-radius: 8px;
+  }
+</style>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,6 +65,47 @@
             font-weight: 600;
             margin-bottom: 20px;
         }
+        .period-log {
+            background-color: #1F1F1F;
+            padding: 25px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 5px solid #E50914;
+            transition: transform 0.2s ease-in-out;
+        }
+        .period-log:hover {
+            transform: scale(1.02);
+        }
+        .log-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .log-content img {
+            width: 120px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .movie-comparison {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .rating {
+            color: gold;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .comments {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #E50914;
+        }
         .footer {
             text-align: center;
             padding: 25px;
@@ -84,52 +125,106 @@
             <a href="#">📽️ Trending</a>
         </div>
     </div>
+    <h2 class="section-title">Your Cycle Calendar</h2>
+    <div id="calendar"></div>
+    
+    <h3>Log a New Period</h3>
+    <input type="date" id="period-start" placeholder="Start Date">
+    <input type="date" id="period-end" placeholder="End Date">
+    <button id="log-period-btn">Log Period</button>
+    
+    <div class="log-form">
+        <h3>Log Your Cycle</h3>
+        <input type="text" id="flow" placeholder="Flow Type (Light/Medium/Heavy)">
+        <input type="text" id="movie" placeholder="Movie Comparison">
+        <input type="text" id="review" placeholder="Review">
+        <input type="number" id="rating" placeholder="Rating (1-5)">
+        <button id="add-log-btn">Add Log</button>
+    </div>
 
-    <h2 class="section-title">Sign in to Cycleboxd</h2>
-    <button id="login-btn">Sign in with Google</button>
-    <button id="logout-btn" style="display:none;">Sign out</button>
-    <p id="user-info">Not logged in</p>
+
+    <div class="auth-container">
+        <h2>Sign in to Cycleboxd</h2>
+        <button id="login-btn">Sign in with Google</button>
+        <button id="logout-btn" style="display:none;">Sign out</button>
+        <p id="user-info">Not logged in</p>
+    </div>
+    
+    <div class="container">
+        <h2 class="section-title">My Cycle Log</h2>
+        
+        <div class="period-log">
+            <h3>January 2024 - Heavy Flow</h3>
+            <div class="log-content">
+                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR38YWKNniX03S3nPtHxLi2k3l8Oa5aolYx1dfcmioUZ_JQ21_G" alt="The Shining Poster">
+                <div class="log-text">
+                    <p class="movie-comparison">"This month: More blood than <strong>The Shining (1980)</strong>."</p>
+                    <p class="rating">🩸🩸🩸🩸🩸 "Brutal opening scene, with a horrifying twist mid-month."</p>
+                    <p class="comments">💬 Kyle: "Damn, you’re going through *Evil Dead 2013* levels of pain."</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="period-log">
+            <h3>December 2023 - Medium Flow</h3>
+            <div class="log-content">
+                <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTdkIQrXgZ_ZpEFonHwwKtTDANVrBe-XPS7CKD3Kzdg6sO9ntSj" alt="Kill Bill Poster">
+                <div class="log-text">
+                    <p class="movie-comparison">"Comparable to <strong>Kill Bill Vol. 1</strong> in intensity."</p>
+                    <p class="rating">🩸🩸🩸🩸 "The action is nonstop, but at least there's a light ending."</p>
+                    <p class="comments">💬 Sarah: "So true. Day 3 hits like *Final Destination* level anxiety."</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="period-log">
+            <h3>November 2023 - Light Flow</h3>
+            <div class="log-content">
+                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSNUnA3ftferBoTQ44o_LI5PJCD2E6OgE5MBMh9kKhujcDEOkIw" alt="Psycho Poster">
+                <div class="log-text">
+                    <p class="movie-comparison">"A gentle experience. More *Psycho shower scene* than *Saw*."</p>
+                    <p class="rating">🩸🩸🩸 "Slow start, barely noticeable climax."</p>
+                    <p class="comments">💬 Josephine: "Must be nice. Mine’s *28 Days Later*."</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="footer">
         &copy; 2024 Cycleboxd. Inspired by Letterboxd. Not affiliated. Unless they want to be.
     </div>
-
     <script type="module">
+        // Import Firebase SDKs
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyC1RnYa2Kcyu98Re1cdmaqk-XOSGEzCXjY",
-            authDomain: "cycleboxd.firebaseapp.com",
-            projectId: "cycleboxd",
-            storageBucket: "cycleboxd.firebasestorage.app",
-            messagingSenderId: "56010578011",
-            appId: "1:56010578011:web:ecfd946003d8aca3f9c77e",
-            measurementId: "G-H84BHGNWXH"
-        };
-
+        import { getFirestore, collection, addDoc, query, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+    
+        // Your Firebase configuration
+    
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        const analytics = getAnalytics(app);
+        // const auth = getAuth(); // This line is removed to avoid redeclaration error
         const provider = new GoogleAuthProvider();
-
+    
+        // Sign in with Google
         document.getElementById("login-btn").addEventListener("click", async () => {
-            try {
-                const result = await signInWithPopup(auth, provider);
-                document.getElementById("user-info").innerText = `Logged in as: ${result.user.displayName}`;
-                document.getElementById("logout-btn").style.display = "block";
-                document.getElementById("login-btn").style.display = "none";
-            } catch (error) {
-                console.error("Error during sign-in:", error);
-            }
+            const result = await signInWithPopup(auth, provider);
+            document.getElementById("user-info").innerText = `Logged in as: ${result.user.displayName}`;
+            document.getElementById("logout-btn").style.display = "block";
+            document.getElementById("login-btn").style.display = "none";
         });
-
+    
+        // Sign out
         document.getElementById("logout-btn").addEventListener("click", async () => {
             await signOut(auth);
             document.getElementById("user-info").innerText = "Not logged in";
             document.getElementById("logout-btn").style.display = "none";
             document.getElementById("login-btn").style.display = "block";
         });
-
+    
+        // Check if user is logged in
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById("user-info").innerText = `Logged in as: ${user.displayName}`;
@@ -137,9 +232,117 @@
                 document.getElementById("login-btn").style.display = "none";
             }
         });
+    
+        // Add a cycle log
+        document.getElementById("add-log-btn").addEventListener("click", async () => {
+            if (!auth.currentUser) {
+                alert("Please log in first!");
+                return;
+            }
+    
+            const logData = {
+                user: auth.currentUser.displayName,
+                flow: document.getElementById("flow").value,
+                movie: document.getElementById("movie").value,
+                review: document.getElementById("review").value,
+                rating: document.getElementById("rating").value,
+                timestamp: new Date()
+            };
+    
+            await addDoc(collection(db, "logs"), logData);
+            alert("Log added successfully!");
+        });
+    
+        // Fetch logs
+        async function fetchLogs() {
+            const q = query(collection(db, "logs"));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+            });
+        }
+    
+        fetchLogs();
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getFirestore, collection, addDoc, query, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+// Initialize Firebase
+const db = getFirestore(app);
+const auth = getAuth();
+
+// Wait for User Login
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("User logged in:", user.displayName);
+        loadCycleData(user.uid);
+    }
+});
+
+// Initialize Calendar
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: [],
+        height: "auto",
+        themeSystem: "dark"
+    });
+    calendar.render();
+
+    // Load Data into Calendar
+    function loadCycleData(userId) {
+        const q = query(collection(db, "cycles"), orderBy("startDate", "desc"));
+        getDocs(q).then((querySnapshot) => {
+            let events = [];
+            querySnapshot.forEach((doc) => {
+                let data = doc.data();
+                events.push({
+                    title: "Period",
+                    start: data.startDate,
+                    end: data.endDate,
+                    color: "#E50914"
+                });
+            });
+            calendar.addEventSource(events);
+        });
+    }
+
+    // Log New Period
+    document.getElementById("log-period-btn").addEventListener("click", async () => {
+        if (!auth.currentUser) {
+            alert("Please log in first!");
+            return;
+        }
+
+        let startDate = document.getElementById("period-start").value;
+        let endDate = document.getElementById("period-end").value;
+
+        if (!startDate || !endDate) {
+            alert("Please enter both dates.");
+            return;
+        }
+
+        const newLog = {
+            userId: auth.currentUser.uid,
+            startDate: startDate,
+            endDate: endDate
+        };
+
+        await addDoc(collection(db, "cycles"), newLog);
+        alert("Period logged successfully!");
+
+        // Refresh Calendar
+        calendar.addEventSource([{ title: "Period", start: startDate, end: endDate, color: "#E50914" }]);
+    });
+});
+
     </script>
 </body>
+
+  
 </html>
+
 
 
 
