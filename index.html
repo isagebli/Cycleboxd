@@ -277,22 +277,27 @@
 import { getFirestore, collection, addDoc, query, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
-// Firebase Config (Replace with Your Actual Config)
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyC1RnYa2Kcyu98Re1cdmaqk-XOSGEzCXjY",
-    authDomain: "cycleboxd.firebaseapp.com",
-    projectId: "cycleboxd",
-    storageBucket: "cycleboxd.firebasestorage.app",
-    messagingSenderId: "56010578011",
-    appId: "1:56010578011:web:ecfd946003d8aca3f9c77e",
-    measurementId: "G-H84BHGNWXH"
+  apiKey: "AIzaSyC1RnYa2Kcyu98Re1cdmaqk-XOSGEzCXjY",
+  authDomain: "cycleboxd.firebaseapp.com",
+  projectId: "cycleboxd",
+  storageBucket: "cycleboxd.firebasestorage.app",
+  messagingSenderId: "56010578011",
+  appId: "1:56010578011:web:ecfd946003d8aca3f9c77e",
+  measurementId: "G-H84BHGNWXH"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth();
-
+const analytics = getAnalytics(app);
 // Wait for User Login
 onAuthStateChanged(auth, (user) => {
     if (user) {
