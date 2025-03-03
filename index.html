@@ -175,50 +175,8 @@
     </div>
 </body>
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, query, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-  
-    // Firebase Configuration
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    const db = getFirestore(app);
-  
-    // Sign in with Google
-    document.getElementById("login-btn").addEventListener("click", async () => {
-      const result = await signInWithPopup(auth, provider);
-      document.getElementById("user-info").innerText = `Logged in as: ${result.user.displayName}`;
-      document.getElementById("logout-btn").style.display = "block";
-      document.getElementById("login-btn").style.display = "none";
-    });
-  
-    // Sign out
-    document.getElementById("logout-btn").addEventListener("click", async () => {
-      await signOut(auth);
-      document.getElementById("user-info").innerText = "Not logged in";
-      document.getElementById("logout-btn").style.display = "none";
-      document.getElementById("login-btn").style.display = "block";
-    });
-  
-    // Check if user is logged in
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        document.getElementById("user-info").innerText = `Logged in as: ${user.displayName}`;
-        document.getElementById("logout-btn").style.display = "block";
-        document.getElementById("login-btn").style.display = "none";
-      }
-    });
+   
+
   
     // Add a cycle log
     document.getElementById("add-log-btn").addEventListener("click", async () => {
