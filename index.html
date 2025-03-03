@@ -169,39 +169,7 @@
     </div>
 </body>
 <script type="module">
-  
-    // Add a cycle log
-    document.getElementById("add-log-btn").addEventListener("click", async () => {
-      if (!auth.currentUser) {
-        alert("Please log in first!");
-        return;
-      }
-  
-      const logData = {
-        user: auth.currentUser.displayName,
-        flow: document.getElementById("flow").value,
-        movie: document.getElementById("movie").value,
-        review: document.getElementById("review").value,
-        rating: document.getElementById("rating").value,
-        timestamp: new Date()
-      };
-  
-      await addDoc(collection(db, "logs"), logData);
-      alert("Log added successfully!");
-    });
-  
-    // Fetch logs
-    async function fetchLogs() {
-      const q = query(collection(db, "logs"));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      });
-    }
-  
-    fetchLogs();
-  </script>
-  
+     
 </html>
 <!DOCTYPE html>
 <html lang="en">
@@ -303,5 +271,38 @@
             `;
         }
     </script>
+  
+    // Add a cycle log
+    document.getElementById("add-log-btn").addEventListener("click", async () => {
+      if (!auth.currentUser) {
+        alert("Please log in first!");
+        return;
+      }
+  
+      const logData = {
+        user: auth.currentUser.displayName,
+        flow: document.getElementById("flow").value,
+        movie: document.getElementById("movie").value,
+        review: document.getElementById("review").value,
+        rating: document.getElementById("rating").value,
+        timestamp: new Date()
+      };
+  
+      await addDoc(collection(db, "logs"), logData);
+      alert("Log added successfully!");
+    });
+  
+    // Fetch logs
+    async function fetchLogs() {
+      const q = query(collection(db, "logs"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+    }
+  
+    fetchLogs();
+  </script>
+ 
 </body>
 </html>
