@@ -203,3 +203,105 @@
   </script>
   
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycleboxd - Blood Loss Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #14181C;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #1F1F1F;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+        }
+        input, select, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        button {
+            background-color: #E50914;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #B2070F;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Blood Loss Calculator</h2>
+        <p>Find out how much you've bled and compare it to your favorite horror films! 🩸🎬</p>
+        <label for="startDate">When did your period start? (Year)</label>
+        <input type="number" id="startDate" placeholder="e.g. 2005">
+        
+        <label for="daysPerCycle">How many days do you bleed per cycle?</label>
+        <input type="number" id="daysPerCycle" placeholder="e.g. 5">
+        
+        <button onclick="calculateBloodLoss()">Calculate</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBloodLoss() {
+            const startYear = parseInt(document.getElementById('startDate').value);
+            const daysPerCycle = parseInt(document.getElementById('daysPerCycle').value);
+            const currentYear = new Date().getFullYear();
+            
+            if (isNaN(startYear) || isNaN(daysPerCycle) || startYear > currentYear) {
+                document.getElementById('result').innerHTML = "⚠️ Please enter a valid year and cycle length.";
+                return;
+            }
+            
+            const yearsBleeding = currentYear - startYear;
+            const cyclesPerYear = 12; // Assuming a 28-day cycle
+            const totalCycles = yearsBleeding * cyclesPerYear;
+            const avgBloodLossPerCycle = 50; // ml
+            const totalBloodLoss = totalCycles * avgBloodLossPerCycle;
+            
+            // Horror movie blood loss comparisons
+            const horrorMovies = [
+                { name: "The Evil Dead (1981)", blood: 50 },
+                { name: "Scream (1996)", blood: 80 },
+                { name: "Kill Bill Vol. 1 (2003)", blood: 170 },
+                { name: "The Shining (1980)", blood: 300 },
+                { name: "Evil Dead (2013)", blood: 500 }
+            ];
+            
+            let closestMovie = horrorMovies[0];
+            for (let movie of horrorMovies) {
+                if (totalBloodLoss >= movie.blood) {
+                    closestMovie = movie;
+                }
+            }
+            
+            document.getElementById('result').innerHTML = `
+                🎉 You've bled a total of <strong>${totalBloodLoss.toFixed(1)} liters</strong>!
+                <br>That's more than the <strong>${closestMovie.name}</strong> (${closestMovie.blood}L of fake blood)! 🩸🎬
+            `;
+        }
+    </script>
+</body>
+</html>
